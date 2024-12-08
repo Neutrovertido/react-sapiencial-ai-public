@@ -1,16 +1,16 @@
-# React Sapiencial AI Public
+# 📣 React Sapiencial AI Public
 
 Public mirror of a ChatGPT API chatbot capable of role-playing as any character. Built using React Native and Expo.
 
-## Screenshots
+## 📸 Screenshots
 
-### Concept GUI
+### 💡 Concept GUI
 ![Concept GUI](img/concept.png)
 
-### Actual GUI
+### 📱 Actual GUI
 ![Actual GUI](img/current.png)
 
-## Table of Contents
+## 📚 Table of Contents
 
 - [Screenshots](#screenshots)
 - [Introduction](#introduction)
@@ -20,32 +20,32 @@ Public mirror of a ChatGPT API chatbot capable of role-playing as any character.
 - [Contributing](#contributing)
 - [License](#license)
 
-## Introduction
+## 🌟 Introduction
 
 The **React Sapiencial AI Public** project is a versatile chatbot application using the ChatGPT API to simulate conversations and role-play with characters. Designed to run on mobile devices, this app leverages React Native for a seamless experience across both iOS and Android platforms, utilizing Expo for easy development and deployment.
 
 **Note**: Support for web is secondary, the main focus is Android & iOS. Feel free to [improve the code](#contributing) for any of the platforms as you see fit.
 
-## Features
+## ✨ Features
 
-- Engage in AI-driven role-playing scenarios.
-- Customize chatbot personalities to suit various characters. (WIP)
-- Store conversations via Firebase login. (WIP)
-- Cross-platform compatibility with iOS and Android devices.
-- Simple and intuitive user interface.
+- 🎭 Engage in AI-driven role-playing scenarios.
+- 🛠 Customize chatbot personalities to suit various characters. (WIP)
+- 💾 Store conversations via Firebase login. (WIP)
+- 📱 Cross-platform compatibility with iOS and Android devices.
+- 🖥 Simple and intuitive user interface.
 
-## Installation
+## ⚙️ Installation
 
 To get started with the project locally, follow these steps:
 
-1. **Clone the repository:**
+1. **📥 Clone the repository:**
 
    ```bash
    git clone https://github.com/yourusername/react-sapiencial-ai-public.git
    cd react-sapiencial-ai-public
    ```
 
-2. **Install dependencies:**
+2. **📦 Install dependencies:**
 
    Ensure you have Node.js and npm installed. Then, run:
 
@@ -53,10 +53,9 @@ To get started with the project locally, follow these steps:
    npm install
    ```
 
-3. **API Keys:**
+3. **🔑 API Keys:**
 
     Set your API Keys for Firebase and OpenAI in `firebase.js` and `openAIRequest.js` respectively.
-
 
     `firebase.js`:
     ```js
@@ -70,17 +69,15 @@ To get started with the project locally, follow these steps:
             appId: "<YOUR_APP_ID>",
             measurementId: "<YOUR_MEASUREMENT_ID>"
         };
-
     ```
 
     `openAIRequest.js`:
     ```js
      // Replace with your actual OpenAI API key
         const openaiAPIKey = 'OPENAI_API_KEY';
-
     ```
 
-4. **Run the app:**
+4. **🚀 Run the app:**
 
    Start the Expo development server:
 
@@ -88,17 +85,17 @@ To get started with the project locally, follow these steps:
    npm start
    ```
 
-4. **Open on your device:**
+5. **📲 Open on your device:**
 
    Use the Expo Go app on your smartphone to scan the QR code or run on an emulator through the provided options after starting the server.
 
-## Usage
+## 🕹 Usage
 
 To use the chatbot, simply navigate through the app's user interface:
 - Select a character for the chatbot to emulate.
 - Begin conversing by typing messages in the chat interface.
 
-## Contributing
+## 🤝 Contributing
 
 Contributions are welcome! If you'd like to improve this project, please fork the repository and submit a pull request with your changes.
 
@@ -108,6 +105,6 @@ Contributions are welcome! If you'd like to improve this project, please fork th
 4. Push to the branch (`git push origin feature/AmazingFeature`).
 5. Open a pull request.
 
-## License
+## 📜 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
