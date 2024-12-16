@@ -112,6 +112,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## ⚠️ Disclaimer
 
-This repository is a public mirror of a private repository with some modifications, mainly the removal of sensitive information and local testing related details.
+This repository is a public mirror of a private repository with some modifications, mainly the removal of sensitive information and local testing related details. The commits pushed into this repo are delivered in a 'squash'-like fashion.
 
 **🤝 Contributions are welcome, however.**
