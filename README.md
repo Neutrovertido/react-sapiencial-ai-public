@@ -33,6 +33,7 @@ The **React Sapiencial AI Public** project is a versatile chatbot application us
 - 💾 Store conversations via Firebase login. (WIP)
 - 📱 Cross-platform compatibility with iOS and Android devices.
 - 🖥 Simple and intuitive user interface.
+- 🌕 Dark mode support based on local system settings.
 
 ## ⚙️ Installation
 
@@ -108,3 +109,9 @@ Contributions are welcome! If you'd like to improve this project, please fork th
 ## 📜 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+# ⚠️ Disclaimer
+
+This repository is a public mirror of a private repository with some modifications, mainly the removal of sensitive information and local testing related details.
+
+**🤝 Contributions are welcome, however.**
