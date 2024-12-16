@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, TextInput, TouchableOpacity, Alert, Appearance, StyleSheet, StatusBar } from 'react-native';
 import { useFonts } from 'expo-font';
 import { auth } from './firebase'; // Import Firebase auth
 import { createUserWithEmailAndPassword } from 'firebase/auth'; // Import Firebase createUserWithEmailAndPassword
+import useDarkMode from './useDarkMode';  // Import the custom hook
+
 
 const SignUp = ({ navigation }) => {
   const [fontsLoaded] = useFonts({
@@ -13,6 +15,7 @@ const SignUp = ({ navigation }) => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const isDarkMode = useDarkMode();  // Use the custom hook
 
   const handleSignUp = async () => {
     try {
@@ -33,10 +36,11 @@ const SignUp = ({ navigation }) => {
   };
 
   return (
-    <View className="flex-1 items-center justify-center bg-[#f7f3f7]">
-      <Text className="text-5xl mb-4 font-rowdies mt-8">sapiencialAI</Text>
+    <View className={`flex-1 items-center justify-center ${isDarkMode ? 'bg-dark-gray' : 'bg-[#f7f3f7]'}`}>
+      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} translucent backgroundColor="transparent" />
+      <Text className={`text-5xl mb-4 font-rowdies mt-8 ${isDarkMode ? 'text-white' : 'text-dark-gray'}`}>sapiencialAI</Text>
       <View className="max-lg:w-3/4 lg:w-1/2 h-[2px] bg-gray-400 mb-4" />
-      <Text className="text-4xl my-5 mb-8 font-roboto">Sign Up</Text>
+      <Text className={`${isDarkMode ? 'text-neutral-200' : 'text-black'} text-4xl my-5 mb-8 font-roboto`}>Sign Up</Text>
 
       <TextInput
         value={email}
@@ -55,9 +59,9 @@ const SignUp = ({ navigation }) => {
 
       <TouchableOpacity
         onPress={handleSignUp}
-        className="max-lg:w-3/4 lg:w-1/2 py-4 bg-gray-600 rounded-full my-4 mb-8"
+        className={`max-lg:w-3/4 lg:w-1/2 py-4 ${isDarkMode ? 'bg-green-700' : 'bg-gray-600'} rounded-xl my-4 mb-8`}
       >
-        <Text className="text-center text-white text-lg font-roboto">Sign Up</Text>
+        <Text className={`text-center text-white text-lg font-roboto`}>Sign Up</Text>
       </TouchableOpacity>
 
     </View>

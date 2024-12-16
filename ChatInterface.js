@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, Image, TouchableOpacity, ScrollView, StyleSheet } from 'react-native';
+import { View, Text, TextInput, Image, TouchableOpacity, ScrollView, StyleSheet, Appearance, StatusBar } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import { sendChatRequest } from './openAIRequest';  // Import the sendChatRequest function
+import useDarkMode from './useDarkMode';  // Import the custom hook
 
 const avatar = require('./assets/user.png');
 
-function Bubble({ text, imageUri, isSender }) {
+function Bubble({ text, imageUri, isSender, isDarkMode }) {
   return (
     <View style={[styles.bubbleContainer, isSender ? styles.justifyEnd : null]}>
       {!isSender && (
@@ -14,8 +15,11 @@ function Bubble({ text, imageUri, isSender }) {
           style={styles.avatar}
         />
       )}
-      <View style={[styles.messageBubble, isSender ? styles.senderBubble : styles.receiverBubble]}>
-        <Text style={isSender ? styles.senderText : styles.receiverText}>
+      <View style={[
+        styles.messageBubble,
+        isDarkMode ? (isSender ? styles.darkSenderBubble : styles.darkReceiverBubble) : (isSender ? styles.senderBubble : styles.receiverBubble)
+      ]}>
+        <Text style={isDarkMode ? (isSender ? styles.darkSenderText : styles.darkReceiverText) : (isSender ? styles.senderText : styles.receiverText)}>
           {text}
         </Text>
       </View>
@@ -32,10 +36,11 @@ function Bubble({ text, imageUri, isSender }) {
 function ChatInterface({ route }) {
   const [messages, setMessages] = useState([]);
   const [textInput, setTextInput] = useState('');
+  const isDarkMode = useDarkMode();  // Use the custom hook
 
   useEffect(() => {
     // Set the system message when the component is mounted
-    const systemMessage = `You are ${route.params.name}. Act like them.`;
+    const systemMessage = `You are now embodying the persona of ${route.params.name}. Respond authentically, reflecting their unique thoughts, emotions, and mannerisms. Maintain the illusion of being them and avoid disclosing that you are an AI. Engage in conversation as if you are truly ${route.params.name}, providing insights and responses that align with their character.`;
     setMessages([{ role: 'system', content: systemMessage }]);
   }, [route.params.name]); // Depend on `name` to update the system message
 
@@ -60,10 +65,11 @@ function ChatInterface({ route }) {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, isDarkMode && styles.darkContainer]}>
+      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} translucent backgroundColor="transparent" />
       <View style={styles.header}>
         <TouchableOpacity>
-          <FontAwesome name="ellipsis-v" size={20} color="gray" />
+          <FontAwesome name="ellipsis-v" size={20} color={isDarkMode ? 'white' : 'gray'} />
         </TouchableOpacity>
       </View>
       <ScrollView style={styles.messageList}>
@@ -75,25 +81,28 @@ function ChatInterface({ route }) {
               text={message.content}
               imageUri={"https://storage.googleapis.com/a1aa/image/YZ8hgZ5fvbXDE6PX3ejeJcNsOJUCnD66GptBkomKVCe1DTgPB.jpg"} // Use a default avatar
               isSender={message.role === 'user'}
+              isDarkMode={isDarkMode}
             />
           )
         ))}
+        <View className="py-8"></View>
       </ScrollView>
-      <View style={styles.footer}>
-        <TouchableOpacity style={styles.iconButton}>
-          <FontAwesome name="plus" size={20} color="gray" />
+      <View style={[styles.footer, isDarkMode && styles.darkFooter]}>
+        <TouchableOpacity style={[styles.iconButton, isDarkMode && styles.darkIconButton]}>
+          <FontAwesome name="plus" size={20} color={isDarkMode ? 'white' : 'gray'} />
         </TouchableOpacity>
         <TextInput
-          style={styles.textInput}
+          style={[styles.textInput, isDarkMode && styles.darkTextInput]}
           placeholder="Message ChatBot"
+          placeholderTextColor={isDarkMode ? '#a2a2a2' : '#808080'}
           value={textInput}
           onChangeText={setTextInput}
         />
-        <TouchableOpacity style={styles.sendButton} onPress={handleSendMessage}>
+        <TouchableOpacity style={[styles.sendButton, isDarkMode && styles.darkSendButton]} onPress={handleSendMessage}>
           <FontAwesome name="paper-plane" size={20} color="white" />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.iconButton}>
-          <FontAwesome name="microphone" size={20} color="gray" />
+        <TouchableOpacity style={[styles.iconButton, isDarkMode && styles.darkIconButton]}>
+          <FontAwesome name="microphone" size={20} color={isDarkMode ? 'white' : 'gray'} />
         </TouchableOpacity>
       </View>
     </View>
@@ -104,13 +113,13 @@ const styles = StyleSheet.create({
   container: {
     width: '100%',
     height: '100%',
-    backgroundColor: 'white',
-    borderRadius: 10,
+    backgroundColor: "white",
+    borderRadius: 0,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.1,
     shadowRadius: 10,
-    elevation: 5,
+    elevation: 0,
   },
   header: {
     flexDirection: 'row',
@@ -189,6 +198,35 @@ const styles = StyleSheet.create({
     borderColor: '#cbd5e0', // border-gray-400
     borderRadius: 10,
     marginRight: 8,
+  },
+  // New styles for dark mode
+  darkContainer: {
+    backgroundColor: '#1a1a1a',
+  },
+  darkFooter: {
+    backgroundColor: '#333333',
+  },
+  darkIconButton: {
+    backgroundColor: '#1a1a1a', // bg-gray-700
+  },
+  darkSendButton: {
+    backgroundColor: '#747687', // bg-gray-700
+  },
+  darkTextInput: {
+    borderColor: '#4a5568',
+    color: 'white',
+  },
+  darkSenderBubble: {
+    backgroundColor: '#ab3015',
+  },
+  darkReceiverBubble: {
+    backgroundColor: '#292a2e',
+  },
+  darkSenderText: {
+    color: '#edf2f7',
+  },
+  darkReceiverText: {
+    color: '#e2e8f0',
   },
 });
 

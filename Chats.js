@@ -1,10 +1,12 @@
-import React from 'react';
-import { View, Text, Image, TouchableOpacity, ScrollView } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, Image, TouchableOpacity, ScrollView, Appearance, StyleSheet, StatusBar } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import useDarkMode from './useDarkMode';  // Import the custom hook
 
 function ChatItem({ name, message, avatar }) {
   const navigation = useNavigation(); // Access navigation here
+  const isDarkMode = useDarkMode();  // Use the custom hook
 
   const openChatInterface = () => {
     // Navigate to ChatInterface and pass necessary data
@@ -12,18 +14,18 @@ function ChatItem({ name, message, avatar }) {
   };
 
   return (
-    <View className="flex-col p-4">
+    <View className="flex-col p-4 border-b border-dotted border-gray-300">
       <TouchableOpacity onPress={openChatInterface}>
         <View className="flex-row items-center justify-between">
           <View className="flex-row items-start flex-1">
             <Image source={{ uri: avatar }} className="w-12 h-12 rounded-full mr-4" />
             <View className="flex-1">
-              <Text className="font-bold text-lg">{name}</Text>
-              <Text className="text-gray-600 flex-shrink">{message}</Text>
+              <Text className= {`${isDarkMode ? 'text-gray-100' : 'text-black'} font-bold text-lg`}>{name}</Text>
+              <Text className={`${isDarkMode ? 'text-gray-400' : 'text-gray-600'} flex-shrink`}>{message}</Text>
             </View>
           </View>
           <TouchableOpacity>
-            <FontAwesome name="ellipsis-v" size={20} color="gray" />
+            <FontAwesome name="ellipsis-v" size={20} color={isDarkMode ? 'white' : 'gray'} />
           </TouchableOpacity>
         </View>
       </TouchableOpacity>
@@ -32,15 +34,19 @@ function ChatItem({ name, message, avatar }) {
 }
 
 function MyChats() {
+  const isDarkMode = useDarkMode();  // Use the custom hook
+
   return (
-    <View className="w-full h-full bg-white shadow-lg rounded-lg pt-16 sm:pt-0">
-      <View className="border-b border-gray-300 p-4 flex-row justify-between items-center">
-        <Text className="text-xl font-bold">My Chats</Text>
+    <View className={`h-full pt-16 sm:pt-0 ${isDarkMode ? 'bg-dark-header-gray' : 'bg-white'}`}>
+      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} translucent backgroundColor="transparent" />
+      <View className={`border-b ${isDarkMode ? 'border-gray-600' : 'border-gray-300'} p-4 flex-row justify-between items-center ${isDarkMode ? 'bg-dark-header-gray' : 'bg-white'}`}>
+        <Text className={`text-xl font-bold ${isDarkMode ? 'text-white' : 'text-black'}`}>My Chats</Text>
         <TouchableOpacity>
-          <FontAwesome name="ellipsis-v" size={20} color="gray" />
+          <FontAwesome name="ellipsis-v" size={20} color={isDarkMode ? 'white' : 'gray'} />
         </TouchableOpacity>
       </View>
-      <ScrollView className="bg-white">
+    <View className={`w-full h-full ${isDarkMode ? 'bg-dark-gray' : 'bg-white'} shadow-lg`}>
+      <ScrollView className={`bg-${isDarkMode ? 'bg-dark-gray' : 'bg-white'}`}>
         <View className="divide-y divide-gray-300">
           <ChatItem
             name="Abraham Lincoln"
@@ -102,8 +108,10 @@ function MyChats() {
             message="When something is important enough, you do it even if the odds are not in your favor."
             avatar="https://storage.googleapis.com/a1aa/image/sCtdf6UZklWf408LsjPeGv6ycdyNxvCEr6eLOnOLnw5b5qfeE.jpg"
           />
+          <View className="p-8"></View>
         </View>
       </ScrollView>
+    </View>
     </View>
   );
 }

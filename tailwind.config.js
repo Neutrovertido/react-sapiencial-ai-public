@@ -8,7 +8,11 @@ module.exports = {
       fontFamily: {
         roboto: ["Roboto", "sans-serif"],
         rowdies: ["Rowdies", "sans-serif"],
-      }
+      },
+      colors: {
+        'dark-gray': '#1a1a1a',
+        'dark-header-gray': '#333333',
+      },
     },
   },
   plugins: [],
